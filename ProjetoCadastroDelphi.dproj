@@ -94,6 +94,36 @@
             <Form>frmPrincipal</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="Geral\Geral.FrameBase.pas">
+            <Form>FrameBase</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TFrame</DesignClass>
+        </DCCReference>
+        <DCCReference Include="Cadastros\Cadastro.FrameTurmas.pas">
+            <Form>FrameTurmas</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TFrame</DesignClass>
+        </DCCReference>
+        <DCCReference Include="Cadastros\Cadastro.FrameDiscentes.pas">
+            <Form>FrameDiscentes</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TFrame</DesignClass>
+        </DCCReference>
+        <DCCReference Include="Cadastros\Cadastro.FrameDoscentes.pas">
+            <Form>FrameDoscentes</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TFrame</DesignClass>
+        </DCCReference>
+        <DCCReference Include="Cadastros\Cadastro.FrameCursos.pas">
+            <Form>FrameCursos</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TFrame</DesignClass>
+        </DCCReference>
+        <DCCReference Include="Cadastros\Cadastro.FrameDisciplinas.pas">
+            <Form>FrameDisciplinas</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TFrame</DesignClass>
+        </DCCReference>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
