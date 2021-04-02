@@ -13,7 +13,7 @@ uses
   Vcl.Imaging.pngimage,
   Cadastro.FrameTurmas,
   Cadastro.FrameDiscentes,
-  Cadastro.FrameDoscentes,
+  Cadastro.FrameDocentes,
   Cadastro.FrameCursos,
   Cadastro.FrameDisciplinas;
 
@@ -36,7 +36,7 @@ type
   private
     FFrameTurmas: TFrameTurmas;
     FFrameDiscentes: TFrameDiscentes;
-    FFrameDoscentes: TFrameDoscentes;
+    FFrameDocentes: TFrameDocentes;
     FFrameCursos: TFrameCursos;
     FFrameDisciplinas: TFrameDisciplinas;
 
@@ -75,11 +75,11 @@ begin
   FFrameDiscentes.Top := Round(PanelPrincipal.Height / 2);
   FFrameDiscentes.btnCancelar.OnClick := FrameDiscentesCancelarClick;
 
-  FFrameDoscentes := TFrameDoscentes.Create(Self);
-  FFrameDoscentes.Parent := PanelPrincipal;
-  FFrameDoscentes.Left := Round(PanelPrincipal.Width / 2);
-  FFrameDoscentes.Top := Round(PanelPrincipal.Height / 2);
-  FFrameDoscentes.btnCancelar.OnClick := FrameDoscentesCancelarClick;
+  FFrameDocentes := TFrameDocentes.Create(Self);
+  FFrameDocentes.Parent := PanelPrincipal;
+  FFrameDocentes.Left := Round(PanelPrincipal.Width / 2);
+  FFrameDocentes.Top := Round(PanelPrincipal.Height / 2);
+  FFrameDocentes.btnCancelar.OnClick := FrameDoscentesCancelarClick;
 
   FFrameCursos := TFrameCursos.Create(Self);
   FFrameCursos.Parent := PanelPrincipal;
@@ -98,7 +98,7 @@ destructor TfrmPrincipal.Destroy;
 begin
   FreeAndNil(FFrameTurmas);
   FreeAndNil(FrameDiscentes);
-  FreeAndNil(FFrameDoscentes);
+  FreeAndNil(FFrameDocentes);
   FreeAndNil(FFrameCursos);
   FreeAndNil(FFrameDisciplinas);
   inherited;
@@ -121,7 +121,7 @@ end;
 
 procedure TfrmPrincipal.FrameDoscentesCancelarClick(Sender: TObject);
 begin
-  FFrameDoscentes.Hide;
+  FFrameDocentes.Hide;
 end;
 
 procedure TfrmPrincipal.FrameTurmasCancelarClick(Sender: TObject);
@@ -151,7 +151,7 @@ end;
 
 procedure TfrmPrincipal.SpeedButton5Click(Sender: TObject);
 begin
-  FFrameDoscentes.Show;
+  FFrameDocentes.Show;
 end;
 
 end.

@@ -109,8 +109,8 @@
             <FormType>dfm</FormType>
             <DesignClass>TFrame</DesignClass>
         </DCCReference>
-        <DCCReference Include="Cadastros\Cadastro.FrameDoscentes.pas">
-            <Form>FrameDoscentes</Form>
+        <DCCReference Include="Cadastros\Cadastro.FrameDocentes.pas">
+            <Form>FrameDocentes</Form>
             <FormType>dfm</FormType>
             <DesignClass>TFrame</DesignClass>
         </DCCReference>
