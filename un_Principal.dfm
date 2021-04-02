@@ -25,7 +25,6 @@ object frmPrincipal: TfrmPrincipal
     Color = clWhite
     ParentBackground = False
     TabOrder = 0
-    ExplicitWidth = 1077
     object SpeedButton1: TSpeedButton
       AlignWithMargins = True
       Left = 352
@@ -235,9 +234,5 @@ object frmPrincipal: TfrmPrincipal
     Color = clWhite
     ParentBackground = False
     TabOrder = 1
-    ExplicitLeft = 320
-    ExplicitTop = 280
-    ExplicitWidth = 185
-    ExplicitHeight = 41
   end
 end

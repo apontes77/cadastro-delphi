@@ -1,4 +1,4 @@
-inherited FrameDoscentes: TFrameDoscentes
+inherited FrameDocentes: TFrameDocentes
   Width = 848
   Height = 667
   Visible = False
@@ -7,18 +7,12 @@ inherited FrameDoscentes: TFrameDoscentes
   inherited PanelPrincipal: TPanel
     Width = 848
     Height = 667
-    BevelKind = bkTile
-    Color = clWhite
-    ParentBackground = False
-    ParentColor = False
-    ExplicitLeft = 0
-    ExplicitTop = 0
     ExplicitWidth = 848
     ExplicitHeight = 667
     inherited Titulo: TLabel
-      Width = 331
-      Caption = 'Cadastro de Doscentes'
-      ExplicitWidth = 331
+      Width = 316
+      Caption = 'Cadastro de Docentes'
+      ExplicitWidth = 316
     end
     object lblCodigoTurma: TLabel
       Left = 56

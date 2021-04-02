@@ -1,4 +1,4 @@
-unit Cadastro.FrameDoscentes;
+unit Cadastro.FrameDocentes;
 
 interface
 
@@ -7,7 +7,7 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Geral.FrameBase, Vcl.Buttons, Vcl.Grids, Vcl.StdCtrls, Vcl.Imaging.pngimage, Vcl.ExtCtrls;
 
 type
-  TFrameDoscentes = class(TFrameBase)
+  TFrameDocentes = class(TFrameBase)
     lblCodigoTurma: TLabel;
     edtCodigo: TEdit;
     Label2: TLabel;
@@ -27,7 +27,7 @@ type
   end;
 
 var
-  FrameDoscentes: TFrameDoscentes;
+  FrameDocentes: TFrameDocentes;
 
 const
   CL_ID = 0;
@@ -42,7 +42,7 @@ implementation
 
 { TFrameDoscentes }
 
-constructor TFrameDoscentes.Create(AOwner: TComponent);
+constructor TFrameDocentes.Create(AOwner: TComponent);
 begin
   inherited;
   GradeDoscentes.Cells[CL_ID, 0] := 'Id. Discente';
