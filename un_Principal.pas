@@ -15,7 +15,8 @@ uses
   Cadastro.FrameDiscentes,
   Cadastro.FrameDocentes,
   Cadastro.FrameCursos,
-  Cadastro.FrameDisciplinas;
+  Cadastro.FrameDisciplinas,
+  Geral.Conexao;
 
 type
   TfrmPrincipal = class(TForm)
@@ -39,7 +40,7 @@ type
     FFrameDocentes: TFrameDocentes;
     FFrameCursos: TFrameCursos;
     FFrameDisciplinas: TFrameDisciplinas;
-
+    FConexao: TConexao;
     procedure FrameTurmasCancelarClick(Sender: TObject);
     procedure FrameDiscentesCancelarClick(Sender: TObject);
     procedure FrameDoscentesCancelarClick(Sender: TObject);
@@ -63,35 +64,50 @@ constructor TfrmPrincipal.Create(AOwner: TComponent);
 begin
   inherited;
 
+  FConexao := TConexao.Create();
+
+  FConexao.Database := 'Cadastro-Delphi';
+  FConexao.User := 'postgres';
+  FConexao.Password := 'postgres';
+  FConexao.Server := 'localhost';
+  FConexao.Port := '5432';
+
+  FConexao.CreateConnection();
+
   FFrameTurmas := TFrameTurmas.Create(Self);
   FFrameTurmas.Parent := PanelPrincipal;
   FFrameTurmas.Left := Round(PanelPrincipal.Width / 2);
   FFrameTurmas.Top := Round(PanelPrincipal.Height / 2);
   FFrameTurmas.btnCancelar.OnClick := FrameTurmasCancelarClick;
+  FFrameTurmas.SetConexao(FConexao);
 
   FFrameDiscentes := TFrameDiscentes.Create(Self);
   FFrameDiscentes.Parent := PanelPrincipal;
   FFrameDiscentes.Left := Round(PanelPrincipal.Width / 2);
   FFrameDiscentes.Top := Round(PanelPrincipal.Height / 2);
   FFrameDiscentes.btnCancelar.OnClick := FrameDiscentesCancelarClick;
+  FFrameDiscentes.SetConexao(FConexao);
 
   FFrameDocentes := TFrameDocentes.Create(Self);
   FFrameDocentes.Parent := PanelPrincipal;
   FFrameDocentes.Left := Round(PanelPrincipal.Width / 2);
   FFrameDocentes.Top := Round(PanelPrincipal.Height / 2);
   FFrameDocentes.btnCancelar.OnClick := FrameDoscentesCancelarClick;
+  FFrameDocentes.SetConexao(FConexao);
 
   FFrameCursos := TFrameCursos.Create(Self);
   FFrameCursos.Parent := PanelPrincipal;
   FFrameCursos.Left := Round(PanelPrincipal.Width / 2);
   FFrameCursos.Top := Round(PanelPrincipal.Height / 2);
   FFrameCursos.btnCancelar.OnClick := FrameCursosCancelarClick;
+  FFrameCursos.SetConexao(FConexao);
 
   FFrameDisciplinas := TFrameDisciplinas.Create(Self);
   FFrameDisciplinas.Parent := PanelPrincipal;
   FFrameDisciplinas.Left := Round(PanelPrincipal.Width / 2);
   FFrameDisciplinas.Top := Round(PanelPrincipal.Height / 2);
   FFrameDisciplinas.btnCancelar.OnClick := FrameDisciplinasCancelarClick;
+  FFrameDisciplinas.SetConexao(FConexao);
 end;
 
 destructor TfrmPrincipal.Destroy;
@@ -101,6 +117,9 @@ begin
   FreeAndNil(FFrameDocentes);
   FreeAndNil(FFrameCursos);
   FreeAndNil(FFrameDisciplinas);
+
+  FConexao.CloseConnection();
+  FreeAndNil(FConexao);
   inherited;
 end;
 

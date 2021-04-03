@@ -7,12 +7,6 @@ inherited FrameDiscentes: TFrameDiscentes
   inherited PanelPrincipal: TPanel
     Width = 845
     Height = 699
-    BevelKind = bkTile
-    Color = clWhite
-    ParentBackground = False
-    ParentColor = False
-    ExplicitLeft = 0
-    ExplicitTop = 0
     ExplicitWidth = 845
     ExplicitHeight = 699
     inherited Titulo: TLabel
@@ -20,7 +14,7 @@ inherited FrameDiscentes: TFrameDiscentes
       Caption = 'Cadastro de Discentes'
       ExplicitWidth = 321
     end
-    object lblCodigoTurma: TLabel
+    object lblNome: TLabel
       Left = 56
       Top = 151
       Width = 59
@@ -33,7 +27,7 @@ inherited FrameDiscentes: TFrameDiscentes
       Font.Style = []
       ParentFont = False
     end
-    object lblDisciplina: TLabel
+    object lblSexo: TLabel
       Left = 56
       Top = 280
       Width = 50
@@ -46,7 +40,7 @@ inherited FrameDiscentes: TFrameDiscentes
       Font.Style = []
       ParentFont = False
     end
-    object Label1: TLabel
+    object lblCurso: TLabel
       Left = 56
       Top = 199
       Width = 57
@@ -59,7 +53,7 @@ inherited FrameDiscentes: TFrameDiscentes
       Font.Style = []
       ParentFont = False
     end
-    object Label2: TLabel
+    object lblIdade: TLabel
       Left = 58
       Top = 239
       Width = 58
@@ -72,7 +66,7 @@ inherited FrameDiscentes: TFrameDiscentes
       Font.Style = []
       ParentFont = False
     end
-    object Label3: TLabel
+    object lblTurma: TLabel
       Left = 58
       Top = 320
       Width = 65
@@ -114,6 +108,7 @@ inherited FrameDiscentes: TFrameDiscentes
       Font.Name = 'Tahoma'
       Font.Style = []
       ParentFont = False
+      OnClick = btnRemoverClick
     end
     object btnSalvar: TSpeedButton
       AlignWithMargins = True
@@ -129,8 +124,22 @@ inherited FrameDiscentes: TFrameDiscentes
       Font.Name = 'Tahoma'
       Font.Style = []
       ParentFont = False
+      OnClick = btnSalvarClick
     end
-    object edtCodigo: TEdit
+    object lblId: TLabel
+      Left = 56
+      Top = 110
+      Width = 28
+      Height = 24
+      Caption = 'ID:'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 5987163
+      Font.Height = -20
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+    end
+    object edtNome: TEdit
       Left = 157
       Top = 151
       Width = 556
@@ -143,7 +152,7 @@ inherited FrameDiscentes: TFrameDiscentes
       ParentFont = False
       TabOrder = 0
     end
-    object edtDisciplina: TComboBox
+    object cbbSexo: TComboBox
       Left = 157
       Top = 280
       Width = 172
@@ -153,10 +162,15 @@ inherited FrameDiscentes: TFrameDiscentes
       Font.Height = -13
       Font.Name = 'Tahoma'
       Font.Style = []
+      ItemIndex = 0
       ParentFont = False
       TabOrder = 1
+      Text = 'Masculino'
+      Items.Strings = (
+        'Masculino'
+        'Feminino')
     end
-    object ComboBox1: TComboBox
+    object cbbCurso: TComboBox
       Left = 157
       Top = 199
       Width = 556
@@ -169,7 +183,7 @@ inherited FrameDiscentes: TFrameDiscentes
       ParentFont = False
       TabOrder = 2
     end
-    object Edit1: TEdit
+    object edtIdade: TEdit
       Left = 157
       Top = 239
       Width = 172
@@ -182,7 +196,7 @@ inherited FrameDiscentes: TFrameDiscentes
       ParentFont = False
       TabOrder = 3
     end
-    object ComboBox2: TComboBox
+    object cbbTurma: TComboBox
       Left = 157
       Top = 320
       Width = 556
@@ -205,6 +219,7 @@ inherited FrameDiscentes: TFrameDiscentes
       RowCount = 2
       Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goRowSelect]
       TabOrder = 5
+      OnDblClick = GradeDiscentesDblClick
       ColWidths = (
         85
         259
@@ -212,6 +227,22 @@ inherited FrameDiscentes: TFrameDiscentes
         95
         110
         270)
+    end
+    object edtId: TEdit
+      Left = 157
+      Top = 110
+      Width = 164
+      Height = 24
+      Enabled = False
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -13
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+      ReadOnly = True
+      TabOrder = 6
+      Text = '0'
     end
   end
 end
