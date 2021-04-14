@@ -20,6 +20,7 @@ type
     function Update(Discente: TDiscente): Boolean;
     function Delete(Id: Integer): Boolean;
     function getAll(): TList<TDiscente>;
+    function getReleases(): TList<TDiscente>;
 
     property Conexao: TConexao read FConexao write FConexao;
   end;
@@ -70,6 +71,45 @@ begin
       Discente.Idade := Query.FieldByName('idade').AsInteger;
       Discente.Sexo := Query.FieldByName('sexo').AsString;
       Discente.Curso := Query.FieldByName('id_curso').AsInteger;
+
+      ListaCursos.Add(Discente);
+      Query.Next;
+    end;
+    Query.Close;
+  finally
+    FreeAndNil(Query);
+  end;
+
+  Result := ListaCursos;
+end;
+
+function TDiscenteDAO.getReleases: TList<TDiscente>;
+var
+  Query: TFDQuery;
+  ListaCursos: TList<TDiscente>;
+  Discente: TDiscente;
+begin
+  Query := TFDQuery.Create(nil);
+
+  try
+    Query.Connection := FConexao.FdConnection;
+
+    Query.SQL.Text := 'SELECT * FROM tb_discente JOIN tb_lancamentos on tb_discente.id_discente = tb_lancamentos.id_discente JOIN tb_turma on tb_turma.id_turma = tb_lancamentos.id_turma ';
+    Query.Open;
+
+    ListaCursos := TList<TDiscente>.Create();
+    while not Query.Eof do
+    begin
+
+      Discente := TDiscente.Create();
+      Discente.Id := Query.FieldByName('id_discente').AsInteger;
+      Discente.Nome := Query.FieldByName('nome_discente').AsString;
+      Discente.Idade := Query.FieldByName('idade').AsInteger;
+      Discente.Sexo := Query.FieldByName('sexo').AsString;
+      Discente.Curso := Query.FieldByName('id_curso').AsInteger;
+      Discente.N1 := Query.FieldByName('n1').AsFloat;
+      Discente.N2 := Query.FieldByName('n2').AsFloat;
+      Discente.Turma := Query.FieldByName('codigo_turma').AsString;
 
       ListaCursos.Add(Discente);
       Query.Next;

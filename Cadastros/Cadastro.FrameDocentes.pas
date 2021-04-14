@@ -14,9 +14,11 @@ uses
   Vcl.Imaging.pngimage,
   Vcl.ExtCtrls,
   Docente.Classe,
+  Turma.Classe,
   Generics.Collections,
   Docente.DAO,
-  Geral.Conexao;
+  Turma.DAO,
+  Geral.Conexao, Vcl.CheckLst;
 
 type
   TFrameDocentes = class(TFrameBase)
@@ -27,22 +29,25 @@ type
     lblSexo: TLabel;
     cbbSexo: TComboBox;
     lblTurma: TLabel;
-    cbbTurma: TComboBox;
     GradeDocentes: TStringGrid;
     btnSalvar: TSpeedButton;
     btnRemover: TSpeedButton;
     btnCancelar: TSpeedButton;
     lblId: TLabel;
     edtId: TEdit;
+    clbTurmas: TCheckListBox;
     procedure GradeDocentesDblClick(Sender: TObject);
     procedure btnSalvarClick(Sender: TObject);
     procedure btnRemoverClick(Sender: TObject);
   private
     FConexao: TConexao;
     FListaDocentes: TList<TDocente>;
-    FDocenteDAO: TDocenteDAO;
+    FListaTurmas: TList<TTurma>;
 
+    FDocenteDAO: TDocenteDAO;
+    FTurmaDAO: TTurmaDAO;
     procedure PopularGrade();
+    procedure PopularListaTurmas();
   public
     constructor Create(AOwner: TComponent); override;
     destructor Destroy(); override;
@@ -88,6 +93,7 @@ end;
 procedure TFrameDocentes.btnSalvarClick(Sender: TObject);
 var
   Docente: TDocente;
+  I,J: integer;
 begin
   inherited;
 
@@ -124,6 +130,7 @@ constructor TFrameDocentes.Create(AOwner: TComponent);
 begin
   inherited;
   FDocenteDAO := TDocenteDAO.Create();
+  FTurmaDAO := TTurmaDAO.Create();
 
   GradeDocentes.Cells[CL_ID, 0] := 'Id. Discente';
   GradeDocentes.Cells[CL_NOME, 0] := 'Nome';
@@ -135,23 +142,35 @@ end;
 destructor TFrameDocentes.Destroy;
 begin
   FreeAndNil(FDocenteDAO);
+  FreeAndNil(FTurmaDAO);
   inherited;
 end;
 
 procedure TFrameDocentes.GradeDocentesDblClick(Sender: TObject);
+var
+  I,J: Integer;
+  ListaTurma: TList<TTurma>;
 begin
   inherited;
+
   edtId.Text := GradeDocentes.Cells[CL_ID, GradeDocentes.Row];
   edtNome.Text := GradeDocentes.Cells[CL_NOME, GradeDocentes.Row];
   edtIdade.Text := GradeDocentes.Cells[CL_IDADE, GradeDocentes.Row];
+
+  for I := 0 to clbTurmas.Count -1 do
+  begin
+    for J := 0 to FListaTurmas.Count -1 do
+    begin
+      if FListaTurmas[J].Codigo = clbTurmas.Items[I] then
+        clbTurmas.ItemEnabled[I] := True;
+    end;
+  end;
 
   if GradeDocentes.Cells[CL_SEXO, GradeDocentes.Row] = 'M' then
     cbbSexo.ItemIndex := 0
   else if GradeDocentes.Cells[CL_SEXO, GradeDocentes.Row] = 'F' then
     cbbSexo.ItemIndex := 1;
 
-//  cbbCurso.ite := GradeDiscentes.Cells[CL_SEXO, GradeDiscentes.Row];
-//  edtNome.Text := GradeDiscentes.Cells[CL_NOME, GradeCursos.Row];
 end;
 
 procedure TFrameDocentes.PopularGrade;
@@ -169,7 +188,19 @@ begin
     GradeDocentes.Cells[CL_NOME, I +1] := FListaDocentes.Items[I].Nome;
     GradeDocentes.Cells[CL_IDADE, I +1] := FListaDocentes.Items[I].Idade.ToString;
     GradeDocentes.Cells[CL_SEXO, I +1] := FListaDocentes.Items[I].Sexo;
+    GradeDocentes.Cells[CL_TURMA, I + 1] := FListaTurmas.Items[I].Codigo;
   end;
+end;
+
+procedure TFrameDocentes.PopularListaTurmas;
+var
+  I: Integer;
+begin
+  for I := 0 to FListaTurmas.Count -1 do
+  begin
+    clbTurmas.AddItem(FListaTurmas[I].Codigo, FListaTurmas[I]);
+  end;
+
 end;
 
 procedure TFrameDocentes.SetConexao(AConexao: TConexao);
@@ -177,8 +208,11 @@ begin
   FConexao := AConexao;
 
   FDocenteDAO.Conexao := FConexao;
+  FTurmaDAO.Conexao := FConexao;
   FListaDocentes := FDocenteDAO.getAll();
+  FListaTurmas := FTurmaDAO.getAll();
   PopularGrade();
+  PopularListaTurmas();
 end;
 
 end.

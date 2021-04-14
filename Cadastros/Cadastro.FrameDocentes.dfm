@@ -1,14 +1,14 @@
 inherited FrameDocentes: TFrameDocentes
   Width = 848
-  Height = 667
+  Height = 799
   Visible = False
   ExplicitWidth = 848
-  ExplicitHeight = 667
+  ExplicitHeight = 799
   inherited PanelPrincipal: TPanel
     Width = 848
-    Height = 667
+    Height = 799
     ExplicitWidth = 848
-    ExplicitHeight = 667
+    ExplicitHeight = 799
     inherited Titulo: TLabel
       Width = 316
       Caption = 'Cadastro de Docentes'
@@ -56,9 +56,9 @@ inherited FrameDocentes: TFrameDocentes
     object lblTurma: TLabel
       Left = 56
       Top = 271
-      Width = 65
+      Width = 74
       Height = 24
-      Caption = 'Turma:'
+      Caption = 'Turmas:'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = 5987163
       Font.Height = -20
@@ -68,8 +68,8 @@ inherited FrameDocentes: TFrameDocentes
     end
     object btnSalvar: TSpeedButton
       AlignWithMargins = True
-      Left = 540
-      Top = 614
+      Left = 538
+      Top = 742
       Width = 81
       Height = 33
       Caption = 'Salvar'
@@ -84,8 +84,8 @@ inherited FrameDocentes: TFrameDocentes
     end
     object btnRemover: TSpeedButton
       AlignWithMargins = True
-      Left = 627
-      Top = 614
+      Left = 625
+      Top = 742
       Width = 81
       Height = 33
       Caption = 'Remover'
@@ -100,8 +100,8 @@ inherited FrameDocentes: TFrameDocentes
     end
     object btnCancelar: TSpeedButton
       AlignWithMargins = True
-      Left = 714
-      Top = 614
+      Left = 712
+      Top = 742
       Width = 81
       Height = 33
       Caption = 'Cancelar'
@@ -170,28 +170,15 @@ inherited FrameDocentes: TFrameDocentes
         'Masculino'
         'Feminino')
     end
-    object cbbTurma: TComboBox
-      Left = 157
-      Top = 271
-      Width = 556
-      Height = 24
-      Font.Charset = DEFAULT_CHARSET
-      Font.Color = clWindowText
-      Font.Height = -13
-      Font.Name = 'Tahoma'
-      Font.Style = []
-      ParentFont = False
-      TabOrder = 3
-    end
     object GradeDocentes: TStringGrid
-      Left = 58
-      Top = 320
+      Left = 56
+      Top = 448
       Width = 737
       Height = 281
       FixedCols = 0
       RowCount = 2
       Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goRangeSelect, goRowSelect]
-      TabOrder = 4
+      TabOrder = 3
       OnDblClick = GradeDocentesDblClick
       ColWidths = (
         85
@@ -213,8 +200,16 @@ inherited FrameDocentes: TFrameDocentes
       Font.Style = []
       ParentFont = False
       ReadOnly = True
-      TabOrder = 5
+      TabOrder = 4
       Text = '0'
+    end
+    object clbTurmas: TCheckListBox
+      Left = 157
+      Top = 271
+      Width = 332
+      Height = 162
+      ItemHeight = 13
+      TabOrder = 5
     end
   end
 end

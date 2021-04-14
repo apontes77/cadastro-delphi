@@ -4,6 +4,7 @@ interface
 
 uses
   Docente.Classe,
+  Turma.Classe,
   Geral.Conexao,
   FireDAC.Comp.Client,
   FireDAC.DApt,
@@ -15,6 +16,7 @@ type
   TDocenteDAO = class
   private
     FConexao: TConexao;
+    procedure AdicionarTurmas(Docente: TDocente);
   public
     procedure Insert(Docente: TDocente);
     function Update(Docente: TDocente): Boolean;
@@ -31,6 +33,42 @@ uses
   System.SysUtils;
 
 { TDiscenteDAO }
+
+procedure TDocenteDAO.AdicionarTurmas(Docente: TDocente);
+var
+  Query: TFDQuery;
+  ListaTurma: TList<TTurma>;
+  Turma: TTurma;
+begin
+  Query := TFDQuery.Create(nil);
+
+  try
+    Query.Connection := FConexao.FdConnection;
+
+    Query.SQL.Text := 'SELECT * FROM tb_turma                            ' + sLineBreak +
+                      'JOIN tb_docente_turma                             ' + sLineBreak +
+                      'ON tb_docente_turma.id_docente = :id              ' + sLineBreak +
+                      'and tb_docente_turma.id_turma = tb_turma.id_turma ';
+    Query.Params.ParamByName('id').AsInteger := Docente.Id;
+    Query.Open;
+
+    ListaTurma := TList<TTurma>.Create();
+    while not Query.Eof do
+    begin
+      Turma := TTurma.Create();
+      Turma.Id := Query.FieldByName('id_turma').AsInteger;
+      Turma.Codigo := Query.FieldByName('codigo_turma').AsString;
+      Turma.Disciplina := Query.FieldByName('id_disciplina').AsInteger;
+
+      ListaTurma.Add(Turma);
+      Query.Next;
+    end;
+    Query.Close;
+    Docente.ListaTurma := ListaTurma;
+  finally
+    FreeAndNil(Query);
+  end;
+end;
 
 function TDocenteDAO.Delete(Id: Integer): Boolean;
 var
@@ -69,6 +107,7 @@ begin
       Docente.Nome := Query.FieldByName('nome_docente').AsString;
       Docente.Idade := Query.FieldByName('idade').AsInteger;
       Docente.Sexo := Query.FieldByName('sexo').AsString;
+      AdicionarTurmas(Docente);
 
       ListaDocentes.Add(Docente);
       Query.Next;
