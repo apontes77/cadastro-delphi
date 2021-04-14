@@ -16,6 +16,7 @@ uses
   Cadastro.FrameDocentes,
   Cadastro.FrameCursos,
   Cadastro.FrameDisciplinas,
+  Relatorio.FrameRelatorios,
   Geral.Conexao;
 
 type
@@ -34,18 +35,21 @@ type
     procedure SpeedButton5Click(Sender: TObject);
     procedure SpeedButton3Click(Sender: TObject);
     procedure SpeedButton1Click(Sender: TObject);
+    procedure SpeedButton6Click(Sender: TObject);
   private
     FFrameTurmas: TFrameTurmas;
     FFrameDiscentes: TFrameDiscentes;
     FFrameDocentes: TFrameDocentes;
     FFrameCursos: TFrameCursos;
     FFrameDisciplinas: TFrameDisciplinas;
+    FFrameRelatorios: TFrameRelatorios;
     FConexao: TConexao;
     procedure FrameTurmasCancelarClick(Sender: TObject);
     procedure FrameDiscentesCancelarClick(Sender: TObject);
     procedure FrameDoscentesCancelarClick(Sender: TObject);
     procedure FrameCursosCancelarClick(Sender: TObject);
     procedure FrameDisciplinasCancelarClick(Sender: TObject);
+    procedure FrameRelatoriosCancelarClick(Sendet: TObject);
   public
     constructor Create(AOwner: TComponent); override;
     destructor Destroy(); override;
@@ -108,6 +112,13 @@ begin
   FFrameDisciplinas.Top := Round(PanelPrincipal.Height / 2);
   FFrameDisciplinas.btnCancelar.OnClick := FrameDisciplinasCancelarClick;
   FFrameDisciplinas.SetConexao(FConexao);
+
+  FFrameRelatorios := TFrameRelatorios.Create(Self);
+  FFrameRelatorios.Parent := PanelPrincipal;
+  FFrameRelatorios.Left := Round(PanelPrincipal.Width / 2);
+  FFrameRelatorios.Top := Round(PanelPrincipal.Height / 2);
+  FFrameRelatorios.btnCancelar.OnClick := FrameRelatoriosCancelarClick;
+  FFrameRelatorios.SetConexao(FConexao);
 end;
 
 destructor TfrmPrincipal.Destroy;
@@ -117,6 +128,7 @@ begin
   FreeAndNil(FFrameDocentes);
   FreeAndNil(FFrameCursos);
   FreeAndNil(FFrameDisciplinas);
+  FreeAndNil(FFrameRelatorios);
 
   FConexao.CloseConnection();
   FreeAndNil(FConexao);
@@ -141,6 +153,11 @@ end;
 procedure TfrmPrincipal.FrameDoscentesCancelarClick(Sender: TObject);
 begin
   FFrameDocentes.Hide;
+end;
+
+procedure TfrmPrincipal.FrameRelatoriosCancelarClick(Sendet: TObject);
+begin
+  FFrameRelatorios.Hide;
 end;
 
 procedure TfrmPrincipal.FrameTurmasCancelarClick(Sender: TObject);
@@ -171,6 +188,11 @@ end;
 procedure TfrmPrincipal.SpeedButton5Click(Sender: TObject);
 begin
   FFrameDocentes.Show;
+end;
+
+procedure TfrmPrincipal.SpeedButton6Click(Sender: TObject);
+begin
+  FFrameRelatorios.Show;
 end;
 
 end.

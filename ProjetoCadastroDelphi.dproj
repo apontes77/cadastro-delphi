@@ -127,6 +127,19 @@
         <DCCReference Include="Geral\Geral.Conexao.pas"/>
         <DCCReference Include="Servicos\Curso.Classe.pas"/>
         <DCCReference Include="Servicos\Curso.DAO.pas"/>
+        <DCCReference Include="Servicos\Discente.Classe.pas"/>
+        <DCCReference Include="Servicos\Discente.DAO.pas"/>
+        <DCCReference Include="Servicos\Disciplina.Classe.pas"/>
+        <DCCReference Include="Servicos\Disciplina.DAO.pas"/>
+        <DCCReference Include="Servicos\Docente.Classe.pas"/>
+        <DCCReference Include="Servicos\Docente.DAO.pas"/>
+        <DCCReference Include="Servicos\Turma.Classe.pas"/>
+        <DCCReference Include="Servicos\Turma.DAO.pas"/>
+        <DCCReference Include="Relatorios\Relatorio.FrameRelatorios.pas">
+            <Form>FrameRelatorios</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TFrame</DesignClass>
+        </DCCReference>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>

@@ -14,8 +14,12 @@ uses
   Vcl.Imaging.pngimage,
   Vcl.ExtCtrls,
   Discente.Classe,
+  Curso.Classe,
+  Turma.Classe,
   Generics.Collections,
   Discente.DAO,
+  Curso.DAO,
+  Turma.DAO,
   Geral.Conexao;
 
 type
@@ -42,8 +46,12 @@ type
   private
     FConexao: TConexao;
     FListaDiscentes: TList<TDiscente>;
-    FDiscenteDAO: TDiscenteDAO;
+    FListaCursos: TList<TCurso>;
+    FListaTurmas: TList<TTurma>;
 
+    FDiscenteDAO: TDiscenteDAO;
+    FCursoDAO: TCursoDAO;
+    FTurmaDAO: TTurmaDAO;
     procedure PopularGrade();
   public
     constructor Create(AOwner: TComponent); override;
@@ -105,7 +113,7 @@ begin
     else if cbbSexo.Items[cbbSexo.ItemIndex] = 'Feminino' then
       Discente.Sexo := 'F';
 
-    Discente.Curso := 1;
+    Discente.Curso := cbbCurso.ItemIndex+1;
     FConexao.FdConnection.StartTransaction;
 
     if Discente.Id > 0 then
@@ -128,6 +136,9 @@ constructor TFrameDiscentes.Create(AOwner: TComponent);
 begin
   inherited;
   FDiscenteDAO := TDiscenteDAO.Create();
+  FCursoDAO := TCursoDAO.Create();
+  FTurmaDAO := TTurmaDAO.Create();
+
   GradeDiscentes.Cells[CL_ID, 0] := 'Id. Discente';
   GradeDiscentes.Cells[CL_NOME, 0] := 'Nome';
   GradeDiscentes.Cells[CL_CURSO, 0] := 'Curso';
@@ -139,6 +150,8 @@ end;
 destructor TFrameDiscentes.Destroy;
 begin
   FreeAndNil(FDiscenteDAO);
+  FreeAndNil(FCursoDAO);
+  FreeAndNil(FTurmaDAO);
   inherited;
 end;
 
@@ -149,13 +162,12 @@ begin
   edtNome.Text := GradeDiscentes.Cells[CL_NOME, GradeDiscentes.Row];
   edtIdade.Text := GradeDiscentes.Cells[CL_IDADE, GradeDiscentes.Row];
 
+  cbbCurso.ItemIndex := StrToInt(GradeDiscentes.Cells[CL_CURSO, GradeDiscentes.Row])-1;
+
   if GradeDiscentes.Cells[CL_SEXO, GradeDiscentes.Row] = 'M' then
     cbbSexo.ItemIndex := 0
   else if GradeDiscentes.Cells[CL_SEXO, GradeDiscentes.Row] = 'F' then
     cbbSexo.ItemIndex := 1;
-
-//  cbbCurso.ite := GradeDiscentes.Cells[CL_SEXO, GradeDiscentes.Row];
-//  edtNome.Text := GradeDiscentes.Cells[CL_NOME, GradeCursos.Row];
 end;
 
 procedure TFrameDiscentes.PopularGrade;
@@ -164,6 +176,8 @@ var
   asdf: string;
 begin
   FListaDiscentes := FDiscenteDAO.getAll();
+  FListaCursos := FCursoDAO.getAll();
+  FListaTurmas := FTurmaDAO.getAll();
 
   GradeDiscentes.RowCount := FListaDiscentes.Count + 1;
 
@@ -176,6 +190,11 @@ begin
     GradeDiscentes.Cells[CL_SEXO, I +1] := FListaDiscentes.Items[I].Sexo;
   end;
 
+  for I := 0 to FListaCursos.Count -1 do
+    cbbCurso.AddItem(FListaCursos[I].Nome, TObject(FListaCursos[I]));
+
+  for I := 0 to FListaTurmas.Count -1 do
+    cbbTurma.AddItem(FListaTurmas[I].Codigo, TObject(FListaTurmas[I]));
 end;
 
 procedure TFrameDiscentes.SetConexao(AConexao: TConexao);
@@ -183,7 +202,8 @@ begin
   FConexao := AConexao;
 
   FDiscenteDAO.Conexao := FConexao;
-  FListaDiscentes := FDiscenteDAO.getAll();
+  FCursoDAO.Conexao := FConexao;
+  FTurmaDAO.Conexao := FConexao;
   PopularGrade();
 end;
 

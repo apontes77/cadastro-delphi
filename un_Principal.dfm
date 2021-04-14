@@ -140,6 +140,7 @@ object frmPrincipal: TfrmPrincipal
       Font.Name = 'Tahoma'
       Font.Style = []
       ParentFont = False
+      OnClick = SpeedButton6Click
       ExplicitLeft = 987
       ExplicitTop = 8
       ExplicitHeight = 33
